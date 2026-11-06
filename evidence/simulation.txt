@@ -1,0 +1,29 @@
+=== 1. Out-of-order delivery: v2, v1, v2 again ===
+STATE order=ordering: v0 CREATED; pending=[]
+DELIVER order=ordering v2 SHIPPED; token=1
+WAIT order=ordering: missing v1; pending=[2]; state=v0 CREATED
+DELIVER order=ordering v1 PAID; token=1
+APPLY order=ordering v1 PAID
+APPLY order=ordering v2 SHIPPED
+DELIVER order=ordering v2 SHIPPED; token=1
+IGNORE duplicate: order=ordering v2 SHIPPED
+STATE order=ordering: v2 SHIPPED; pending=[]
+
+=== 2. Missing event: only v2 arrives ===
+DELIVER order=missing v2 SHIPPED; token=2
+WAIT order=missing: missing v1; pending=[2]; state=v0 CREATED
+STATE order=missing: v0 CREATED; pending=[2]
+
+=== 3. Stale worker: ownership changes while A is paused ===
+Worker A acquires token=3, then pauses
+Worker B acquires newer token=4
+DELIVER order=workers v1 PAID; token=4
+APPLY order=workers v1 PAID
+Worker A resumes and attempts the next valid version
+DELIVER order=workers v2 SHIPPED; token=3
+REJECT stale/invalid worker: order=workers v2 SHIPPED; token=3, current=4
+STATE order=workers: v1 PAID; pending=[]
+Worker B completes the order
+DELIVER order=workers v2 SHIPPED; token=4
+APPLY order=workers v2 SHIPPED
+STATE order=workers: v2 SHIPPED; pending=[]

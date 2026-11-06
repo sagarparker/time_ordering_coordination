@@ -1,0 +1,14 @@
+test_all_delivery_permutations_with_duplicates (test_order_simulation.OrderStoreTests.test_all_delivery_permutations_with_duplicates) ... ok
+test_concurrent_duplicate_delivery_applies_each_version_once (test_order_simulation.OrderStoreTests.test_concurrent_duplicate_delivery_applies_each_version_once) ... ok
+test_duplicate_pending_event (test_order_simulation.OrderStoreTests.test_duplicate_pending_event) ... ok
+test_invalid_lifecycle_does_not_change_state (test_order_simulation.OrderStoreTests.test_invalid_lifecycle_does_not_change_state) ... ok
+test_missing_version_remains_pending (test_order_simulation.OrderStoreTests.test_missing_version_remains_pending) ... ok
+test_new_owner_fences_old_worker_before_any_new_write (test_order_simulation.OrderStoreTests.test_new_owner_fences_old_worker_before_any_new_write) ... ok
+test_orders_have_independent_gaps (test_order_simulation.OrderStoreTests.test_orders_have_independent_gaps) ... ok
+test_required_delivery_order (test_order_simulation.OrderStoreTests.test_required_delivery_order) ... ok
+test_unissued_token_cannot_write (test_order_simulation.OrderStoreTests.test_unissued_token_cannot_write) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+OK
